@@ -41,7 +41,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: nts_testing
+  database: nts_test
   pool: 5
   username: nts
   password:

@@ -3,10 +3,9 @@ task :fetch_games => :environment do
   require 'nokogiri'
   require 'open-uri'
 
-  (3..31).each do |x|
+  (28..29).each do |x|
     # x = 2
-    month = "201201"
-
+    month = "201202"
     day = x.to_s
     day = "0#{x.to_s}" if x < 10
     day = "#{month}#{day}"
@@ -17,7 +16,7 @@ task :fetch_games => :environment do
     doc.css("table.tbl-odds").each do |game|
       g = Game.create!
       g.date = "#{day}".to_date
-      g.month = 1
+      g.month = 2
       g.season = "11-12"
       g.a_team = game.css(".tbl-odds-c2").first.text
       g.h_team = game.css(".tbl-odds-c2").last.text
