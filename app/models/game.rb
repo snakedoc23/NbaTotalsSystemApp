@@ -8,6 +8,7 @@ class Game < ActiveRecord::Base
   scope :s2012, where("season LIKE '11-12'")
   scope :s2011, where("season LIKE '10-11'")
   scope :team_games, lambda { |team| s2012.where("a_team LIKE '#{team}' or h_team LIKE '#{team}'") }
+  scope :today, where(:date => Date.today)
 
   def add_totals # dodaje do tabeli sume punktow oraz uzupelnia pole over
     if a_score && h_score && total == nil
@@ -164,6 +165,7 @@ class Game < ActiveRecord::Base
     stats
   end
 
+
   def self.fetch_next_games(day = nil)
     day = day || Date.today.strftime("%Y%m%d")
     url = "http://www.sbrforum.com/nba-basketball/odds-scores/#{day}/"
@@ -196,6 +198,17 @@ class Game < ActiveRecord::Base
       else
         p "No games to update in db"
       end
+    end
+  end
+
+  def self.update_lines(day = nil)
+    day = day || Date.today.strftime("%Y%m%d")
+    url = "http://www.sbrforum.com/nba-basketball/odds-scores/#{day}/"
+    doc = Nokogiri::HTML(open(url))
+    doc.css("table.tbl-odds").each do |game|
+      g = Game.where(:date => "#{day}".to_date).where(:h_team => game.css(".tbl-odds-c2").last.text).first
+      g.line = game.at_css(".tbl-odds-c7").text.gsub("\u00BD", ".5")[0,5].to_f
+      g.save
     end
   end
 

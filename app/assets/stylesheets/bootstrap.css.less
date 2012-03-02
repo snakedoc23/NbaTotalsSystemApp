@@ -1,0 +1,88 @@
+@import "twitter/bootstrap";
+
+// import responsive layout
+@import "twitter/bootstrap/responsive";
+
+
+@over: #d8dd8c;
+@under: #f26d54;
+@line: 1px solid #ccc;
+
+
+.game {
+  border: @line;
+  // float: left;
+  width: 960px;
+  height: 58px;
+  margin-bottom: 5px;
+  .td {
+    width: 80px;
+    float: left;
+    line-height: 25px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    height: 50px;
+  }
+  .teams, .line, .o_u_ah, .o_u, .totals, .totals_ah, .score, .line_score {
+    border-right: @line;
+  }
+  .line {
+    line-height: 50px;
+    text-align: center;
+    width: 45px;
+    font-weight: 500;
+  }
+  .score {
+    width: 31px;
+    text-align: center;
+    background-color: @grayLighter;
+  }
+  .line_score {
+
+    text-align: center;
+    width: 50px;
+    font-weight: 500;
+  }
+  .teams {
+    width: 100px;
+    height: 50px;
+    font-weight: 500;
+    padding-left: 4px;
+  }
+  .o_u_ah, .o_u, .totals, .totals_ah {
+    padding-left: 4px;
+  }
+  .o_u_ah, .o_u, .totals_ah {
+    width: 77px;
+  }
+  .totals {
+    width: 57px;
+  }
+  .over {
+    background: @over;
+  }
+  .under {
+    background: @under;
+    color: white;
+  }
+  .last_games {
+    width: 472px;
+    .away, .home {
+      height: 25px;
+    }
+    .ag, .hg {
+      display: block;
+      float: left;
+      width: 45px;
+
+      height: 24px;
+      text-align: center;
+      margin-left: 2px;
+      font-size: 1.1em;
+    }
+    .hg {
+      margin-top: 2px;
+    }
+
+  }
+}
