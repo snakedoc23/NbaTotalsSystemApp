@@ -8,13 +8,35 @@
 @under: #f26d54;
 @line: 1px solid #ccc;
 
-.games {
-  margin-top: 60px;
+body {
+  border-top: 2px solid @pink;
 }
+.games_container {
+  width: 1000px;
+  margin: auto;
+  h3 {
+    text-align:center;
+    .overs {
+      color: @over;
+    }
+    .unders {
+      color: @under;
+    }
+  }
+}
+
+.days_nav {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  .next {
+    float: right;
+  }
+}
+
 .game {
   border: @line;
   // float: left;
-  width: 960px;
+  // width: 1000px;
   height: 58px;
   margin-bottom: 5px;
   .td {
@@ -29,10 +51,10 @@
     border-right: @line;
   }
   .line {
-    line-height: 50px;
+    line-height: 25px;
     text-align: center;
     width: 45px;
-    font-weight: 500;
+    font-weight: bold;
   }
   .score {
     width: 31px;
@@ -42,23 +64,23 @@
   .line_score {
 
     text-align: center;
-    width: 50px;
+    width: 57px;
     font-weight: 500;
   }
   .teams {
     width: 100px;
     height: 50px;
-    font-weight: 500;
+    font-weight: bold;
     padding-left: 4px;
   }
   .o_u_ah, .o_u, .totals, .totals_ah {
     padding-left: 4px;
   }
   .o_u_ah, .o_u, .totals_ah {
-    width: 77px;
+    width: 80px;
   }
   .totals {
-    width: 57px;
+    width: 70px;
   }
   .over {
     background: @over;

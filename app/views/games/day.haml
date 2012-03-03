@@ -1,0 +1,21 @@
+.games_container
+  %h3
+    = @date.strftime("%A - %d %b")
+    = "( #{@games.size} )"
+  
+    %span.overs
+      = "#{@overs}"
+    = " - "
+    %span.unders
+      = "#{@unders}"
+  .days_nav
+    %a{:href => "./#{@prev_day}", :class => "btn", :title => @prev_day.to_date}
+      %i{:class => "icon-arrow-left prev"}
+      Prev
+
+    %a{:href => "./#{@next_day}", :class => "btn next"}
+      Next
+      %i{:class => "icon-arrow-right"}
+  = render 'games'
+
+  = @bets

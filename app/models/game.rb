@@ -34,6 +34,8 @@ class Game < ActiveRecord::Base
     end
   end
 
+ 
+
   # ostatnie mecze teamow
   def a_team_last_games(num)
     Game.team_games(a_team).where("date < '#{date}'").order(:date).last(num)
@@ -165,6 +167,48 @@ class Game < ActiveRecord::Base
     stats
   end
 
+  def self.system_bet(day)
+    b_o = 0
+    b_u = 0
+    w_o = 0
+    w_u = 0
+    Game.where(:date => day.to_date).each do |game|
+      alg = game.a_team_last_games(1).last
+      hlg = game.h_team_last_games(1).last
+      if alg.over == hlg.over
+        if alg.over == 1
+          b_o += 1
+          if game.over == 1
+            w_o += 1
+          end
+        elsif alg.over == -1
+          b_u += 1
+          if game.over == -1
+            w_u += 1
+          end
+        end
+      end
+    end
+    p "Overy do grania #{b_o} - W #{w_o}"
+    p "Udery do grania #{b_u} - W #{w_u}"
+    "#{w_o + w_u} - #{b_o + b_u -  w_o - w_u}" 
+  end
+
+  def self.day_o_u(day)
+    o = 0
+    u = 0
+    p = 0
+    Game.where(:date => day.to_date).each do |game|
+      if game.over == 1
+        o += 1
+      elsif game.over == -1
+        u += 1
+      else
+        p += 1
+      end
+    end
+    {:o => o, :u => u, :p => p} 
+  end
 
   def self.fetch_next_games(day = nil)
     day = day || Date.today.strftime("%Y%m%d")

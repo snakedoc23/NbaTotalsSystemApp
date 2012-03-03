@@ -1,0 +1,106 @@
+.games
+  - @games.each do |game|
+    - at_stats = game.team_stats(82, 'a')
+    - at_stats10 = game.team_stats(10, 'a')
+    - ht_stats = game.team_stats(82, 'h')
+    - ht_stats10 = game.team_stats(10, 'h')
+    .game
+      .td.teams
+        .away
+          = game.a_team
+        .home
+          = game.h_team
+      - if game.total
+        .td.score
+          .away
+            = game.a_score
+          .home
+            = game.h_score
+
+      
+        - if game.over == 1
+          .td.line_score.over
+            = "O (#{game.total - game.line})"
+            = game.line
+        - elsif game.over == -1
+          .td.line_score.under
+            = "U (#{game.total - game.line})"
+            = game.line
+        - else
+          .td.line_score.push
+            = "P"
+            = game.line
+      - else
+        .td.line
+          = game.line
+          = "(#{game.line_open})"
+      .td.o_u
+        .away
+          = "#{at_stats[:o_u]} (#{at_stats10[:o_u]})"
+        .home
+          = "#{ht_stats[:o_u]} (#{ht_stats10[:o_u]})"
+      .td.o_u_ah
+        .away
+          = "A: #{at_stats[:away][:o_u]} (#{at_stats10[:away][:o_u]})"
+        .home
+          = "H: #{ht_stats[:home][:o_u]} (#{ht_stats10[:home][:o_u]})"
+      .td.totals
+        .away
+          = "#{(at_stats[:total] - game.line).round} (#{(at_stats10[:total] - game.line).round})"
+        .home
+          = "#{(ht_stats[:total] - game.line).round} (#{(ht_stats10[:total] - game.line).round})"
+      .td.totals_ah
+        .away
+          = "A: #{(at_stats[:away][:total] - game.line).round} (#{(at_stats10[:away][:total] - game.line).round})"
+        .home
+          = "H: #{(ht_stats[:home][:total] - game.line).round} (#{(ht_stats10[:home][:total] - game.line).round})"
+      .td.last_games
+        .away
+          - game.a_team_last_games(10).each do |ag|
+            - over = ag.total - ag.line
+            - if over > 0
+              - if ag.h_team == game.a_team
+                - content = "<p>#{ag.date}</p><p>#{ag.a_team} @ <strong>#{ag.h_team}</strong> #{ag.a_score}:<strong>#{ag.h_score}</strong></p><p>OVER #{ag.line} (#{ag.total})</p>"
+              - else
+                - content = "<p>#{ag.date}</p><p><strong>#{ag.a_team}</strong> @ #{ag.h_team} <strong>#{ag.a_score}</strong>:#{ag.h_score}</p><p>OVER #{ag.line} (#{ag.total})</p>"
+              .ag.over{:data => {:content => content}}
+                = over
+            - elsif over < 0
+              - if ag.h_team == game.a_team
+                - content = "<p>#{ag.date}</p><p>#{ag.a_team} @ <strong>#{ag.h_team}</strong> #{ag.a_score}:<strong>#{ag.h_score}</strong></p><p>UNDER #{ag.line} (#{ag.total})</p>"
+              - else
+                - content = "<p>#{ag.date}</p><p><strong>#{ag.a_team}</strong> @ #{ag.h_team} <strong>#{ag.a_score}</strong>:#{ag.h_score}</p><p>UNDER #{ag.line} (#{ag.total})</p>"
+              .ag.under{:data => {:content => content}}
+                = over
+            -else
+              - if ag.h_team == game.a_team
+                - content = "<p>#{ag.date}</p><p>#{ag.a_team} @ <strong>#{ag.h_team}</strong> #{ag.a_score}:<strong>#{ag.h_score}</strong></p><p>PUSH #{ag.line} (#{ag.total})</p>"
+              - else
+                - content = "<p>#{ag.date}</p><p><strong>#{ag.a_team}</strong> @ #{ag.h_team} <strong>#{ag.a_score}</strong>:#{ag.h_score}</p><p>PUSH #{ag.line} (#{ag.total})</p>"
+              .ag.push{:data => {:content => content}}
+                = over
+
+        .home
+          - game.h_team_last_games(10).each do |hg|
+            - over = hg.total - hg.line
+            - if over > 0
+              - if hg.h_team == game.h_team
+                - content = "<p>#{hg.date}</p><p>#{hg.a_team} @ <strong>#{hg.h_team}</strong> #{hg.a_score}:<strong>#{hg.h_score}</strong></p><p>OVER #{hg.line} (#{hg.total})</p>"
+              - else
+                - content = "<p>#{hg.date}</p><p><strong>#{hg.a_team}</strong> @ #{hg.h_team} <strong>#{hg.a_score}</strong>:#{hg.h_score}</p><p>OVER #{hg.line} (#{hg.total})</p>"
+              .hg.over{:data => {:content => content}}
+                = over
+            - elsif over < 0
+              - if hg.h_team == game.h_team
+                - content = "<p>#{hg.date}</p><p>#{hg.a_team} @ <strong>#{hg.h_team}</strong> #{hg.a_score}:<strong>#{hg.h_score}</strong></p><p>UNDER #{hg.line} (#{hg.total})</p>"
+              - else
+                - content = "<p>#{hg.date}</p><p><strong>#{hg.a_team}</strong> @ #{hg.h_team} <strong>#{hg.a_score}</strong>:#{hg.h_score}</p><p>UNDER #{hg.line} (#{hg.total})</p>"
+              .hg.under{:data => {:content => content}}
+                = over
+            -else
+              - if hg.h_team == game.h_team
+                - content = "<p>#{hg.date}</p><p>#{hg.a_team} @ <strong>#{hg.h_team}</strong> #{hg.a_score}:<strong>#{hg.h_score}</strong></p><p>PUSH #{hg.line} (#{hg.total})</p>"
+              - else
+                - content = "<p>#{hg.date}</p><p><strong>#{hg.a_team}</strong> @ #{hg.h_team} <strong>#{hg.a_score}</strong>:#{hg.h_score}</p><p>PUSH #{hg.line} (#{hg.total})</p>"
+              .hg.push{:data => {:content => content}}
+                = over

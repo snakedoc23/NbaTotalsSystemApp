@@ -1,6 +1,9 @@
 Nts::Application.routes.draw do
 
   match "games" => "games#index"
+
+  match "/update_lines" => "games#update_lines"
+  match "/:date" => "games#day"
   root :to => 'games#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
