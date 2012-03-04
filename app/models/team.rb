@@ -7,9 +7,8 @@ class Team < ActiveRecord::Base
     
   end
 
-
   def games
-    # wszystkie mecze 
+    Game.team_games(sbr_name).order(:date)
   end
 
 end

@@ -1,0 +1,39 @@
+.teams-list.container-fluid
+  - @teams.each do |team|
+    .team.row-fluid
+      .team_name
+        = team.name
+      .last_games
+        - team.games.each do |game|
+          - if !game.total.nil?
+            - over = game.total - game.line
+            - if over > 0
+              - if game.h_team = team
+                -content = "<p>#{game.date}</p><p>#{game.a_team} @ <strong>#{game.h_team}</strong> #{game.a_score}:<strong>#{game.h_score}</strong></p><p>OVER #{game.line} (#{game.total})</p>"
+                .tg.over{:data => {:content => content, :game => game.id}}
+                  = over
+              - else
+                - content = "<p>#{game.date}</p><p><strong>#{game.a_team}</strong> @ #{game.h_team} <strong>#{game.a_score}</strong>:#{game.h_score}</p><p>OVER #{game.line} (#{game.total})</p>"
+                .tg.over{:data => {:content => content}}
+                  = over
+            - elsif over < 0
+              - if game.h_team = team
+                -content = "<p>#{game.date}</p><p>#{game.a_team} @ <strong>#{game.h_team}</strong> #{game.a_score}:<strong>#{game.h_score}</strong></p><p>OVER #{game.line} (#{game.total})</p>"
+                .tg.under{:data => {:content => content}}
+                  = over
+              - else
+                - content = "<p>#{game.date}</p><p><strong>#{game.a_team}</strong> @ #{game.h_team} <strong>#{game.a_score}</strong>:#{game.h_score}</p><p>OVER #{game.line} (#{game.total})</p>"
+                .tg.under{:data => {:content => content}}
+                  = over
+            -else
+              - if game.h_team == game.a_team
+                - content = "<p>#{game.date}</p><p>#{game.a_team} @ <strong>#{game.h_team}</strong> #{game.a_score}:<strong>#{game.h_score}</strong></p><p>PUSH #{game.line} (#{game.total})</p>"
+              - else
+                - content = "<p>#{game.date}</p><p><strong>#{game.a_team}</strong> @ #{game.h_team} <strong>#{game.a_score}</strong>:#{game.h_score}</p><p>PUSH #{game.line} (#{game.total})</p>"
+                .tg.push{:data => {:content => content}}
+                  = over
+          - else
+            .next
+              = game.id
+
+

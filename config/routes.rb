@@ -1,6 +1,7 @@
 Nts::Application.routes.draw do
 
   match "games" => "games#index"
+  match "teams" => "teams#index"
 
   match "/update_lines" => "games#update_lines"
   match "/:date" => "games#day"

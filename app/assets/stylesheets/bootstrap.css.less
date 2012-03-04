@@ -24,7 +24,6 @@ body {
     }
   }
 }
-
 .days_nav {
   margin-bottom: 10px;
   margin-top: 10px;
@@ -32,7 +31,6 @@ body {
     float: right;
   }
 }
-
 .game {
   border: @line;
   // float: left;
@@ -82,28 +80,29 @@ body {
   .totals {
     width: 70px;
   }
-  .over {
-    background: @over;
-  }
-  .under {
-    background: @under;
-    color: white;
-  }
+
+  // .over {
+  //   background: @over;
+  // }
+  // .under {
+  //   background: @under;
+  //   color: white;
+  // }
   .last_games {
     width: 472px;
     .away, .home {
       height: 25px;
     }
-    .ag, .hg {
-      display: block;
-      float: left;
-      width: 45px;
-      cursor: pointer;
-      height: 24px;
-      text-align: center;
-      margin-left: 2px;
-      font-size: 1.1em;
-    }
+    // .ag, .hg {
+    //   display: block;
+    //   float: left;
+    //   width: 45px;
+    //   cursor: pointer;
+    //   height: 24px;
+    //   text-align: center;
+    //   margin-left: 2px;
+    //   font-size: 1.1em;
+    // }
     .hg {
       margin-top: 2px;
     }
@@ -116,5 +115,58 @@ body {
   }
   .popover-content {
 
+  }
+}
+
+
+// last games 
+.last_games {
+  .over, .under, .push {
+    display: block;
+    float: left;
+    width: 45px;
+    cursor: pointer;
+    height: 24px;
+    text-align: center;
+    margin-left: 2px;
+    font-size: 1.1em;
+  }
+  .over {
+    background: @over;
+  }
+  .under {
+    background: @under;
+    color: white;
+  }
+}
+
+
+// TEAMS
+.teams-list {
+
+  margin-top: 140px;
+}
+
+.team {
+  border: @line;
+  margin-top: 5px;
+  .team_name { float: left; width: 93px; line-height: 24px;}
+  .last_games {
+    float: left;
+    .tg {
+      width: 35px;
+      line-height: 24px;
+    }
+    .next {
+      width: 60px;
+      height: 24px;
+      background: @blue;
+      color: white;
+      float: left;
+      width: 45px;
+      text-align: center;
+      line-height: 24px;
+      margin-left: 2px;
+    }
   }
 }
