@@ -2,36 +2,32 @@
   - @teams.each do |team|
     .team.row-fluid
       .team_name
-        = team.name
+        = team.sym
       .last_games
         - team.games.each do |game|
           - if !game.total.nil?
             - over = game.total - game.line
             - if over > 0
-              - if game.h_team = team
+              - if game.h_team == team.sbr_name
                 -content = "<p>#{game.date}</p><p>#{game.a_team} @ <strong>#{game.h_team}</strong> #{game.a_score}:<strong>#{game.h_score}</strong></p><p>OVER #{game.line} (#{game.total})</p>"
-                .tg.over{:data => {:content => content, :game => game.id}}
-                  = over
               - else
                 - content = "<p>#{game.date}</p><p><strong>#{game.a_team}</strong> @ #{game.h_team} <strong>#{game.a_score}</strong>:#{game.h_score}</p><p>OVER #{game.line} (#{game.total})</p>"
-                .tg.over{:data => {:content => content}}
-                  = over
+              .tg.over{:data => {:content => content, :game => game.id}}
+                = over
             - elsif over < 0
-              - if game.h_team = team
-                -content = "<p>#{game.date}</p><p>#{game.a_team} @ <strong>#{game.h_team}</strong> #{game.a_score}:<strong>#{game.h_score}</strong></p><p>OVER #{game.line} (#{game.total})</p>"
-                .tg.under{:data => {:content => content}}
-                  = over
+              - if game.h_team == team.sbr_name
+                -content = "<p>#{game.date}</p><p>#{game.a_team} @ <strong>#{game.h_team}</strong> #{game.a_score}:<strong>#{game.h_score}</strong></p><p>UNDER #{game.line} (#{game.total})</p>"
               - else
-                - content = "<p>#{game.date}</p><p><strong>#{game.a_team}</strong> @ #{game.h_team} <strong>#{game.a_score}</strong>:#{game.h_score}</p><p>OVER #{game.line} (#{game.total})</p>"
-                .tg.under{:data => {:content => content}}
-                  = over
+                - content = "<p>#{game.date}</p><p><strong>#{game.a_team}</strong> @ #{game.h_team} <strong>#{game.a_score}</strong>:#{game.h_score}</p><p>UNDER #{game.line} (#{game.total})</p>"
+              .tg.under{:data => {:content => content, :game => game.id}}
+                = over
             -else
-              - if game.h_team == game.a_team
+              - if game.h_team == team.sbr_name
                 - content = "<p>#{game.date}</p><p>#{game.a_team} @ <strong>#{game.h_team}</strong> #{game.a_score}:<strong>#{game.h_score}</strong></p><p>PUSH #{game.line} (#{game.total})</p>"
               - else
                 - content = "<p>#{game.date}</p><p><strong>#{game.a_team}</strong> @ #{game.h_team} <strong>#{game.a_score}</strong>:#{game.h_score}</p><p>PUSH #{game.line} (#{game.total})</p>"
-                .tg.push{:data => {:content => content}}
-                  = over
+              .tg.push{:data => {:content => content, :game => game.id}}
+                = over
           - else
             .next
               = game.id

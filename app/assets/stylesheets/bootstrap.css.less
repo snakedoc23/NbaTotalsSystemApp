@@ -11,6 +11,16 @@
 body {
   border-top: 2px solid @pink;
 }
+
+.over {
+  background: @over;
+}
+.under {
+  background: @under;
+  color: white;
+}
+
+
 .games_container {
   width: 1000px;
   margin: auto;
@@ -131,13 +141,6 @@ body {
     margin-left: 2px;
     font-size: 1.1em;
   }
-  .over {
-    background: @over;
-  }
-  .under {
-    background: @under;
-    color: white;
-  }
 }
 
 
@@ -169,4 +172,8 @@ body {
       margin-left: 2px;
     }
   }
+}
+
+.selectedGame {
+  background-color: @yellow;
 }

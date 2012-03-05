@@ -3,3 +3,8 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 $ ->
   $('.tg').popover({placement: 'top'})
+  $('.tg').on 'mouseover', ->
+    id = $(this).data('game')
+    $('.tg').removeClass('selectedGame').filter ->
+      return $(this).data('game') == id 
+    .addClass('selectedGame')
