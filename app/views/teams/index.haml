@@ -3,6 +3,7 @@
     .team.row-fluid
       .team_name
         = team.sym
+        = " (#{team.o_u})"
       .last_games
         - team.games.each do |game|
           - if !game.total.nil?

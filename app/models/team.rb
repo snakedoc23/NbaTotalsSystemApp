@@ -11,6 +11,47 @@ class Team < ActiveRecord::Base
     Game.team_games(sbr_name).order(:date)
   end
 
+  def last_game(date = nil)
+    date ||= games.last.date
+    games.where("date < '#{date}'").where("total > 10").last
+  end
+
+  def o_u
+    "#{games.where(:over => 1).size} - #{games.where(:over => -1).size}"
+  end
+
+
+
+  def breaks
+    b = 0
+    s = 0
+    games.each do |g|
+      d = g.date
+      if lg = last_game(d)
+        puts "#{lg.a_team} @ #{lg.h_team}"
+        if lg.over == g.over
+          s += 1
+        else
+          b += 1
+        end
+      end
+    end
+    puts "B:#{b} S:#{s}"
+    {:b => b, :s => s}
+  end
+
+  def self.breaks_stats
+    b = 0
+    s = 0
+    Team.all.each do |t|
+      st = t.breaks
+      s += st[:s]
+      b += st[:b]
+    end
+    puts "B:#{b} S:#{s}"
+  end
+
+
 end
 
 

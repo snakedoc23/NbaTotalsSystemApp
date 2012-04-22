@@ -8,3 +8,6 @@ $ ->
     $('.tg').removeClass('selectedGame').filter ->
       return $(this).data('game') == id 
     .addClass('selectedGame')
+  $('.team').on 'mouseover', ->
+    $('.team_name').removeClass('selectedGame')
+    $(this).find($('.team_name')).addClass('selectedGame')

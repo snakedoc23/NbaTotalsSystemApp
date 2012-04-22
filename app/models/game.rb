@@ -210,6 +210,37 @@ class Game < ActiveRecord::Base
     {:o => o, :u => u, :p => p} 
   end
 
+  def self.last_o_u(num = nil)
+    n = num || 1
+    o = 0
+    u = 0
+    Game.where("total > 10").last(n).each do |g|
+      o += 1 if g.over == 1
+      u += 1 if g.over == -1
+    end
+    "#{o} - #{u}"
+  end
+
+  def self.days_o_u
+    stats = []
+    d = Game.order(:date).first.date
+    while d < Date.today
+      o_u = Game.day_o_u(d)
+      d = d.next_day
+      x = ""
+      if o_u[:o] > o_u[:u]
+        x = "OVERS"
+      elsif o_u[:o] < o_u[:u]
+          x = "U"
+      end
+      stats.push "#{d} #{o_u[:o]}-#{o_u[:u]} #{x}"
+    end
+    stats.each do |day|
+      puts day
+    end
+  end
+
+
   def self.fetch_next_games(day = nil)
     day = day || Date.today.strftime("%Y%m%d")
     url = "http://www.sbrforum.com/nba-basketball/odds-scores/#{day}/"
