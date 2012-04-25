@@ -18,7 +18,8 @@ class GamesController < ApplicationController
 
     @overs = Game.day_o_u(params[:date])[:o]
     @unders = Game.day_o_u(params[:date])[:u]
-    @bets = Game.system_bet(params[:date])
+    stats = Game.system_bet(params[:date])
+    @bets = "#{stats[:w]} - #{stats[:l]}"
   end
 
   def update_lines

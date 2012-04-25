@@ -167,6 +167,20 @@ class Game < ActiveRecord::Base
     stats
   end
 
+  def self.system_stat
+    w = 0
+    l = 0
+    day = Game.order(:date).first.date
+    while day <= Date.yesterday
+      bets = system_bet(day)
+      w += bets[:w]
+      l += bets[:l]
+      day = day.next_day
+    end
+
+    "#{w} - #{l}"
+  end
+
   def self.system_bet(day)
     b_o = 0
     b_u = 0
@@ -175,23 +189,25 @@ class Game < ActiveRecord::Base
     Game.where(:date => day.to_date).each do |game|
       alg = game.a_team_last_games(1).last
       hlg = game.h_team_last_games(1).last
-      if alg.over == hlg.over
-        if alg.over == 1
-          b_o += 1
-          if game.over == 1
-            w_o += 1
-          end
-        elsif alg.over == -1
-          b_u += 1
-          if game.over == -1
-            w_u += 1
+      if alg && hlg
+        if alg.over == hlg.over
+          if alg.over == 1
+            b_o += 1
+            if game.over == 1
+              w_o += 1
+            end
+          elsif alg.over == -1
+            b_u += 1
+            if game.over == -1
+              w_u += 1
+            end
           end
         end
       end
     end
     p "Overy do grania #{b_o} - W #{w_o}"
     p "Udery do grania #{b_u} - W #{w_u}"
-    "#{w_o + w_u} - #{b_o + b_u -  w_o - w_u}" 
+    {:w => w_o + w_u, :l => b_o + b_u -  w_o - w_u}
   end
 
   def self.day_o_u(day)
