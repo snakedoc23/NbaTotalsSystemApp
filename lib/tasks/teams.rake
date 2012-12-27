@@ -4,6 +4,7 @@ task :create_teams => :environment do
   teams = [
     ["Atlanta", "Atlanta", "Hawks", "ATL"],
     ["Boston", "Boston", "Celtics", "BOS"],
+    ["Brooklyn", "Brooklyn", "Nets", "BK"],
     ["Charlotte", "Charlotte", "Bobcats", "CHA"],
     ["Chicago", "Chicago", "Bulls", "CHI"],
     ["Cleveland", "Cleveland", "Cavaliers", "CLE"],

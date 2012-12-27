@@ -5,9 +5,10 @@ class Game < ActiveRecord::Base
 
   after_save :add_totals
 
+  scope :s2013, where("season LIKE '12-13'")
   scope :s2012, where("season LIKE '11-12'")
   scope :s2011, where("season LIKE '10-11'")
-  scope :team_games, lambda { |team| s2012.where("a_team LIKE '#{team}' or h_team LIKE '#{team}'") }
+  scope :team_games, lambda { |team| s2013.where("a_team LIKE '#{team}' or h_team LIKE '#{team}'") }
   scope :today, where(:date => Date.today)
 
   def add_totals # dodaje do tabeli sume punktow oraz uzupelnia pole over
@@ -265,7 +266,7 @@ class Game < ActiveRecord::Base
       g = Game.create!
       g.date = "#{day}".to_date
       g.month = day.to_date.month
-      g.season = "11-12"
+      g.season = "12-13"
       g.a_team = game.css(".tbl-odds-c2").first.text
       g.h_team = game.css(".tbl-odds-c2").last.text
       g.line_open = game.at_css(".tbl-odds-c6").text.gsub("\u00BD", ".5")[0,5].to_f
