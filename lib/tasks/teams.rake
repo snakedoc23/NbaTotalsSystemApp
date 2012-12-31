@@ -20,7 +20,6 @@ task :create_teams => :environment do
     ["Miami", "Miami", "Heat", "MIA"],
     ["Milwaukee", "Milwaukee", "Bucks", "MIL"],
     ["Minnesota", "Minnesota", "Timberwolves", "MIN"],
-    ["New Jersey", "New Jersey", "Nets", "NJ"],
     ["New Orleans", "New Orleans", "Hornets", "NO"],
     ["New York", "New York", "Knicks", "NY"],
     ["Oklahoma City", "Oklahoma City", "Thunder", "OKC"],
