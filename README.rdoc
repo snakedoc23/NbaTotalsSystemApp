@@ -1,1 +1,3 @@
 == NTS - NBA TOTALS SYSTEM app
+
+[NTS](http://nbats.herokuapp.com/)
